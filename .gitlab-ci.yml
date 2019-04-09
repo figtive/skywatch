@@ -1,0 +1,14 @@
+stages:
+  - deploy
+
+deploy-to-production:
+  image: ruby:latest
+  stage: deploy
+  environment:
+    name: production
+    url: $PRODUCTION_URL
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --api-key=$HEROKU_API_KEY --app=$HEROKU_APP_NAME_PRODUCTION
+  only:
+    - master
