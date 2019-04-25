@@ -1,9 +1,14 @@
 package com.skywatch.service;
 
+import com.skywatch.model.Crash;
 import com.skywatch.model.InformationGainData;
 import com.skywatch.repository.CrashRepository;
 import com.skywatch.repository.InformationGainDataRepository;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class InformationGainService {
@@ -11,6 +16,55 @@ public class InformationGainService {
     private final CrashRepository crashRepository;
 
     private final InformationGainDataRepository informationGainDataRepository;
+
+
+    public int calculateNumOfOutcomeTrue(String attribute) {
+        ArrayList<Crash> crashes = new ArrayList<>();
+        for (Crash object : crashRepository.findAll()) {
+            crashes.add(object);
+        }
+
+        int numOfOutcomeTrue = 0;
+
+        switch(attribute) {
+            case "rating":
+                for (int i=0; i< crashes.size(); i++) {
+                    if (crashes.get(i).isRating() && crashes.get(i).isCrashed()) {
+                        numOfOutcomeTrue++;
+                    }
+                }
+
+            case "modelAge":
+                for (int i=0; i< crashes.size(); i++) {
+                    if (crashes.get(i).isModelAge() && crashes.get(i).isModelAge()) {
+                        numOfOutcomeTrue++;
+                    }
+                }
+
+            case "firstFlight":
+                for (int i=0; i< crashes.size(); i++) {
+                    if (crashes.get(i).isFirstFlight() && crashes.get(i).isFirstFlight()) {
+                        numOfOutcomeTrue++;
+                    }
+                }
+
+            case "pilotAge":
+                for (int i=0; i< crashes.size(); i++) {
+                    if (crashes.get(i).isPilotAge() && crashes.get(i).isPilotAge()) {
+                        numOfOutcomeTrue++;
+                    }
+                }
+
+            case "weather":
+                for (int i=0; i< crashes.size(); i++) {
+                    if (crashes.get(i).isWeather() && crashes.get(i).isWeather()) {
+                        numOfOutcomeTrue++;
+                    }
+                }
+        }
+        return numOfOutcomeTrue;
+    }
+
 
     public InformationGainService(CrashRepository crashRepository, InformationGainDataRepository informationGainDataRepository) {
         this.crashRepository = crashRepository;
@@ -41,15 +95,16 @@ public class InformationGainService {
         return booleanEntropyImpurity(nOfTrue, totalVals);
     }
 
-    private double findRemainder(int numOfTrue, int numOfFalse) {
+    private double findRemainder(int numOfTrue, int numOfFalse, String attribute) {
+        int numerator = calculateNumOfOutcomeTrue(attribute);
         return numOfTrue != 0 && numOfFalse != 0 ?
-                (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy(numOfTrue, numOfTrue + numOfFalse) +
-                        (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy(numOfFalse, numOfTrue + numOfFalse) : 0;
+                (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
+                        (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
 
     }
 
     private double findGain(int numOfOutcomeTrue, int numOfOutcomeFalse, int numOfTrue, int numOfFalse) {
-        return booleanEntropyImpurity(numOfOutcomeTrue, numOfOutcomeTrue + numOfOutcomeFalse) - findRemainder(numOfTrue, numOfFalse);
+        return booleanEntropyImpurity(numOfOutcomeTrue, numOfOutcomeTrue + numOfOutcomeFalse) - findRemainder(numOfTrue, numOfFalse, );
     }
 
     public InformationGainData calculateGain() {
