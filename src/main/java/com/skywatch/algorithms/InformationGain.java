@@ -35,9 +35,9 @@ public class InformationGain {
             (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy(numOfFalse, numOfTrue + numOfFalse);
 
     }
-
-    public double findGain(int numOfTrue, int numOfFalse) {
-        return booleanEntropyImpurity(numOfTrue, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse);
+    
+    public double findGain(int numOfOutcomeTrue, int numOfOutcomeFalse, int numOfTrue, int numOfFalse) {
+        return booleanEntropyImpurity(numOfOutcomeTrue, numOfOutcomeTrue + numOfOutcomeFalse) - findRemainder(numOfTrue, numOfFalse);
     }
 
 }
