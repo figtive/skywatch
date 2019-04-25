@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class InformationGainData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "rating")
@@ -25,18 +24,15 @@ public class InformationGainData {
     @Column(name = "weather")
     private double weather;
 
-    @Column(name = "crashed")
-    private double crashed;
-
     public InformationGainData() {}
 
-    public InformationGainData(double rating, double modelAge, double firstFlight, double pilotAge, double weather, double crashed) {
-        this.rating = rating;
-        this.modelAge = modelAge;
-        this.firstFlight = firstFlight;
-        this.pilotAge = pilotAge;
-        this.weather = weather;
-        this.crashed = crashed;
+    public InformationGainData(double[] data) {
+        this.id = 1L;
+        this.rating = data[0];
+        this.modelAge = data[1];
+        this.firstFlight = data[2];
+        this.pilotAge = data[3];
+        this.weather = data[4];
     }
 
     public long getId() {
@@ -85,13 +81,5 @@ public class InformationGainData {
 
     public void setWeather(double weather) {
         this.weather = weather;
-    }
-
-    public double getCrashed() {
-        return crashed;
-    }
-
-    public void setCrashed(double crashed) {
-        this.crashed = crashed;
     }
 }

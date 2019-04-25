@@ -10,7 +10,7 @@ import java.util.List;
 public interface CrashRepository extends JpaRepository<Crash, Long> {
     List<Crash> findByRatingIs(boolean rating);
     List<Crash> findByModelAgeIs(boolean modelAge);
-    List<Crash> findByFirstFlighIs(boolean firstFlight);
+    List<Crash> findByFirstFlightIs(boolean firstFlight);
     List<Crash> findByPilotAgeIs(boolean pilotAge);
     List<Crash> findByWeatherIs(boolean weather);
     List<Crash> findByCrashedIs(boolean crashed);

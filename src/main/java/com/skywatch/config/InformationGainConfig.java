@@ -1,5 +1,6 @@
 package com.skywatch.config;
 
+import com.skywatch.service.InformationGainService;
 import com.skywatch.model.InformationGainData;
 import com.skywatch.repository.InformationGainDataRepository;
 import org.springframework.context.annotation.Bean;
@@ -11,18 +12,16 @@ import java.util.Optional;
 public class InformationGainConfig {
 
     private final InformationGainDataRepository informationGainDataRepository;
+    private final InformationGainService informationGainService;
 
-    public InformationGainConfig(InformationGainDataRepository informationGainDataRepository) {
+    public InformationGainConfig(InformationGainDataRepository informationGainDataRepository, InformationGainService informationGainService) {
         this.informationGainDataRepository = informationGainDataRepository;
+        this.informationGainService = informationGainService;
     }
 
     @Bean
     public InformationGainData informationGainData() {
         Optional<InformationGainData> informationGainData = informationGainDataRepository.findById(1L);
-        if (informationGainData.isPresent()) {
-            return informationGainData.get();
-        } else {
-
-        }
+        return informationGainData.orElseGet(informationGainService::calculateGain);
     }
 }

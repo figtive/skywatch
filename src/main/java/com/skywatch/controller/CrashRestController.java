@@ -32,4 +32,10 @@ public class CrashRestController {
     public List<Crash> batchPostCrash(@RequestBody List<Crash> crashes) {
         return crashRepository.saveAll(crashes);
     }
+
+    @GetMapping("/deleteallcrash")
+    public String deleteAllCrash() {
+        crashRepository.deleteAll();
+        return "Success";
+    }
 }
