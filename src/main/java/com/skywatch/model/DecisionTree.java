@@ -1,35 +1,45 @@
-package com.skywatch.model;
+// package com.skywatch.model;
 
+// import java.util.Arrays;
 
-class Node {
-    Crash crashKey;
-    boolean boolKey;
-    Node left, right;
+// import javax.persistence.Entity;
 
-    public Node(boolean bool) {
-        crashKey = null;
-        boolKey = bool;
-        left = right = null;
-    }
+// import com.skywatch.model.InformationGainData;
+// import com.skywatch.service.InformationGainService;;
 
-    public Node(Crash crashObject){
-        crashKey = crashObject;
-        boolKey = false;
-        left = right = null;
+// class Node {
+//     Crash crashKey;
+//     boolean boolKey;
+//     Node left, right;
 
-    }
+//     public Node(boolean bool) {
+//         crashKey = null;
+//         boolKey = bool;
+//         left = right = null;
+//     }
+
+//     public Node(Crash crashObject){
+//         crashKey = crashObject;
+//         boolKey = false;
+//         left = right = null;
+
+//     }
     
-}
+// }
 
-class DecisionTree {
-    Node root;
+// class DecisionTree {
 
-    DecisionTree(Crash crashObject) {
-        root = new Node(crashObject);
-    }
+//     public DecisionTree(){}
 
-    DecisionTree(boolean bool) {
-        root = new Node(bool);
-    }
-    
-}
+
+//     Node root;
+
+//     DecisionTree(Crash crashObject) {
+//         root = new Node(crashObject);
+//     }
+
+//     DecisionTree(boolean bool) {
+//         root = new Node(bool);
+//     }
+
+// }
