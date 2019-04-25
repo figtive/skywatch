@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Skywatch<is-project>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.skywatch.Skywatch",
+            "projectName": "is-project",
+            "args": ""
+        }
+    ]
+}
