@@ -18,68 +18,57 @@ public class InformationGainService {
     private final InformationGainDataRepository informationGainDataRepository;
 
 
-    public int calculateNumOfOutcomeTrue(String attribute) {
+    public int calculateNumOfCrashedTrue(String attribute) {
         ArrayList<Crash> crashes = new ArrayList<>();
         for (Crash object : crashRepository.findAll()) {
             crashes.add(object);
         }
 
-        int numOfOutcomeTrue = 0;
+        int numOfCrashedTrue = 0;
 
         switch(attribute) {
             case "rating":
                 for (int i=0; i< crashes.size(); i++) {
                     if (crashes.get(i).isRating() && crashes.get(i).isCrashed()) {
-                        numOfOutcomeTrue++;
+                        numOfCrashedTrue++;
                     }
                 }
 
             case "modelAge":
                 for (int i=0; i< crashes.size(); i++) {
                     if (crashes.get(i).isModelAge() && crashes.get(i).isModelAge()) {
-                        numOfOutcomeTrue++;
+                        numOfCrashedTrue++;
                     }
                 }
 
             case "firstFlight":
                 for (int i=0; i< crashes.size(); i++) {
                     if (crashes.get(i).isFirstFlight() && crashes.get(i).isFirstFlight()) {
-                        numOfOutcomeTrue++;
+                        numOfCrashedTrue++;
                     }
                 }
 
             case "pilotAge":
                 for (int i=0; i< crashes.size(); i++) {
                     if (crashes.get(i).isPilotAge() && crashes.get(i).isPilotAge()) {
-                        numOfOutcomeTrue++;
+                        numOfCrashedTrue++;
                     }
                 }
 
             case "weather":
                 for (int i=0; i< crashes.size(); i++) {
                     if (crashes.get(i).isWeather() && crashes.get(i).isWeather()) {
-                        numOfOutcomeTrue++;
+                        numOfCrashedTrue++;
                     }
                 }
         }
-        return numOfOutcomeTrue;
+        return numOfCrashedTrue;
     }
 
 
     public InformationGainService(CrashRepository crashRepository, InformationGainDataRepository informationGainDataRepository) {
         this.crashRepository = crashRepository;
         this.informationGainDataRepository = informationGainDataRepository;
-    }
-
-    //@param sum of each value of the variable
-    //@param total sample/number of values of the variable
-    public double entropyImpurity(int[] sumOfEachVal, int totalVal) {
-        double entropy = 0.0;
-        for (int value : sumOfEachVal) {
-            int probability = value / totalVal;
-            entropy -= probability * (Math.log(probability) / Math.log(2));
-        }
-        return entropy;
     }
 
 
@@ -96,15 +85,17 @@ public class InformationGainService {
     }
 
     private double findRemainder(int numOfTrue, int numOfFalse, String attribute) {
-        int numerator = calculateNumOfOutcomeTrue(attribute);
+        int numerator = calculateNumOfCrashedTrue(attribute);
         return numOfTrue != 0 && numOfFalse != 0 ?
-                (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
-                        (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
+            (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
+                    (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
+
 
     }
 
-    private double findGain(int numOfOutcomeTrue, int numOfOutcomeFalse, int numOfTrue, int numOfFalse) {
-        return booleanEntropyImpurity(numOfOutcomeTrue, numOfOutcomeTrue + numOfOutcomeFalse) - findRemainder(numOfTrue, numOfFalse, );
+    private double findGain(int numOfTrue, int numOfFalse, String attribute) {
+        int numerator = calculateNumOfCrashedTrue(attribute);
+        return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
     }
 
     public InformationGainData calculateGain() {
@@ -112,34 +103,29 @@ public class InformationGainService {
         int crashedTrue = crashRepository.findByCrashedIs(true).size();
         int crashedFalse = crashRepository.findAll().size() - crashedTrue;
         data[0] = findGain(
-                crashedTrue,
-                crashedFalse,
                 crashRepository.findByRatingIs(true).size(),
-                crashRepository.findByRatingIs(false).size()
+                crashRepository.findByRatingIs(false).size(),
+                "rating"
         );
         data[1] = findGain(
-                crashedTrue,
-                crashedFalse,
                 crashRepository.findByModelAgeIs(true).size(),
-                crashRepository.findByModelAgeIs(false).size()
+                crashRepository.findByModelAgeIs(false).size(),
+                "modelAge"
         );
         data[2] = findGain(
-                crashedTrue,
-                crashedFalse,
                 crashRepository.findByFirstFlightIs(true).size(),
-                crashRepository.findByFirstFlightIs(false).size()
+                crashRepository.findByFirstFlightIs(false).size(),
+                "firstFlight"
         );
         data[3] = findGain(
-                crashedTrue,
-                crashedFalse,
                 crashRepository.findByPilotAgeIs(true).size(),
-                crashRepository.findByPilotAgeIs(false).size()
+                crashRepository.findByPilotAgeIs(false).size(),
+                "pilotAge"
         );
         data[4] = findGain(
-                crashedTrue,
-                crashedFalse,
                 crashRepository.findByWeatherIs(true).size(),
-                crashRepository.findByWeatherIs(false).size()
+                crashRepository.findByWeatherIs(false).size(),
+                "weather"
         );
         informationGainDataRepository.deleteAll();
         return informationGainDataRepository.save(new InformationGainData(data));
