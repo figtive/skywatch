@@ -32,7 +32,7 @@ public class InformationGainService {
     //@param num of TRUE of the variable
     //@param total sample/number of values of the variable
     private double booleanEntropyImpurity(int numOfTrue, int totalVals) {
-        double probNumOfTrue = totalVals != 0 ? numOfTrue / totalVals : 0;
+        double probNumOfTrue = totalVals != 0 ? (double) numOfTrue / totalVals : 0;
         return -(probNumOfTrue * (Math.log(probNumOfTrue) / Math.log(2)) + (1 - probNumOfTrue) * (Math.log(1 - probNumOfTrue) / Math.log(2)));
 
     }
@@ -43,13 +43,11 @@ public class InformationGainService {
 
     private double findRemainder(int numOfTrue, int numOfFalse) {
         return numOfTrue != 0 && numOfFalse != 0 ?
-                (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy(numOfTrue, numOfTrue + numOfFalse) +
-                (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy(numOfFalse, numOfTrue + numOfFalse)
-                :
-                0;
+                (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy(numOfTrue, numOfTrue + numOfFalse) +
+                        (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy(numOfFalse, numOfTrue + numOfFalse) : 0;
 
     }
-    
+
     private double findGain(int numOfOutcomeTrue, int numOfOutcomeFalse, int numOfTrue, int numOfFalse) {
         return booleanEntropyImpurity(numOfOutcomeTrue, numOfOutcomeTrue + numOfOutcomeFalse) - findRemainder(numOfTrue, numOfFalse);
     }
