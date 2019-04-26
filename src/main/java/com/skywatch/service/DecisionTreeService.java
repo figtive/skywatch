@@ -1,5 +1,9 @@
 package com.skywatch.service;
 
+import java.util.ArrayList;
+
+import com.skywatch.service.Node;
+import com.skywatch.service.InformationGainService;
 import com.skywatch.model.InformationGainData;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +13,12 @@ class DecisionTreeService {
     private final InformationGainData informationGainData;
     private final InformationGainService informationGainService;
     private Node root;
+    private ArrayList<Node> nodeArray;
     
 
-    public DecisionTreeService(String attribute, InformationGainData informationGainData, InformationGainService informationGainService){
+    public DecisionTreeService(InformationGainData informationGainData, InformationGainService informationGainService){
         this.informationGainData = informationGainData;
         this.informationGainService = informationGainService;
-        root = new Node(attribute);
     }
 
     public double findHighestInfoGain(double[] gainArray){
@@ -36,50 +40,36 @@ class DecisionTreeService {
         return index;
     }
 
-    public void setRootNode(int index){
+    public ArrayList<Node> setTopNode(int index){
         switch(index){
             case 0:
-                root = new Node("rating");
+                root = new Node("rating", null);
+                nodeArray.add(root);
                 // TODO left
                 // TODO right
             
             case 1:
-                root = new Node("modelAge");
+                root = new Node("modelAge", null);
+                nodeArray.add(root);
                 // TODO left
                 // TODO right
 
             case 2:
-                root = new Node("firstFlight");
+                root = new Node("firstFlight", null);
+                nodeArray.add(root);
                 // TODO left
                 // TODO right
 
             case 3:
-                root = new Node("pilotAge");
+                root = new Node("pilotAge", null);
+                nodeArray.add(root);
                 // TODO left
                 // TODO right
                 
         }
+
+        return nodeArray;
         
     }
 
-}
-
-class Node {
-    String attribute;
-    boolean boolKey;
-    Node left, right;
-
-    public Node(boolean bool) {
-        attribute = null;
-        boolKey = bool;
-        left = right = null;
-    }
-
-    public Node(String attribute){
-        attribute = attribute;
-        boolKey = false;
-        left = right = null;
-
-    }
-    
 }

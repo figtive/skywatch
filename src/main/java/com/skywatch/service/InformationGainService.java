@@ -112,11 +112,32 @@ public class InformationGainService {
 
     }
 
+    //TODO
+    private double findRemainderChild(int numOfTrue, int numOfFalse, String attribute, boolean bool) {
+        int numerator = calculateNumOfCrashedTrueChild(attribute, bool);
+        return numOfTrue != 0 && numOfFalse != 0 ?
+            (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
+                    (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
+
+
+    }
+
     private double findGain(int numOfTrue, int numOfFalse, String attribute) {
         int numerator = calculateNumOfCrashedTrue(attribute);
         return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
     }
 
+    // private double findChildGain(int numOfTrue, int numOfFalse, String parentAttribute, String childAttribute, boolean bool) {
+    //     int numerator = calculateNumOfCrashedTrueChild(parentAttribute, bool);
+    //     switch(parentAttribute){
+    //         case "rating":
+    //             if(childAttribute == "modelAge"){
+    //             return booleanEntropyImpurity(numerator, crashRepository.findByRatingIs(bool).size()) - findRemainder(numOfTrue, numOfFalse, parentAttribute);
+    //             }
+    //         case "modelAge":
+    //             return booleanEntropyImpurity(numerator,numOfFalse) - findRemainder(numOfTrue, numOfFalse, parentAttribute);
+    //     }
+    // }
 
     public InformationGainData calculateGain() {
         double[] data = new double[5];
@@ -184,15 +205,4 @@ public class InformationGainService {
         informationGainDataRepository.deleteAll();
         return informationGainDataRepository.save(new InformationGainData(data));
     }
-
-
-
-
-
-
-
-
-
-
-
 }
