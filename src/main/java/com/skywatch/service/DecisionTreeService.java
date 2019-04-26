@@ -1,35 +1,20 @@
 package com.skywatch.service;
 
-import java.util.Arrays;
-import java.lang.Math;
-
-import javax.persistence.Entity;
-
-import com.skywatch.service.InformationGainService;
-
+import com.skywatch.model.InformationGainData;
 import org.springframework.stereotype.Service;
 
-import com.skywatch.repository.*;
-import com.skywatch.model.*;
-
 @Service
-class DecisionTree {
+class DecisionTreeService {
 
     private final InformationGainData informationGainData;
     private final InformationGainService informationGainService;
-    Node root;
+    private Node root;
     
 
-    public DecisionTree(String attribute, InformationGainData informationGainData, InformationGainService informationGainService){
+    public DecisionTreeService(String attribute, InformationGainData informationGainData, InformationGainService informationGainService){
         this.informationGainData = informationGainData;
         this.informationGainService = informationGainService;
         root = new Node(attribute);
-    }
-
-    public DecisionTree(boolean bool, InformationGainData informationGainData, InformationGainService informationGainService){
-        this.informationGainData = informationGainData;
-        this.informationGainService = informationGainService;
-        root = new Node(bool);
     }
 
     public double findHighestInfoGain(double[] gainArray){
