@@ -90,14 +90,32 @@ public class InformationGainService {
 
     }
 
+    private double findRemainderChild(int numOfTrue, int numOfFalse, String attribute) {
+        int numerator = calculateNumOfCrashedTrueChild(attribute);
+        return numOfTrue != 0 && numOfFalse != 0 ?
+            (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
+                    (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
+
+
+    }
+
     private double findGain(int numOfTrue, int numOfFalse, String attribute) {
         int numerator = calculateNumOfCrashedTrue(attribute);
         return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
     }
 
-    private double findChildGain(int numOfTrue, int numOfFalse, String attributeParent, boolean bool) {
+    private double findChildGain(int numOfTrue, int numOfFalse, String parentAttribute, String childAttribute, boolean bool) {
         int numerator = calculateNumOfCrashedTrueChild(attribute, bool);
-        return booleanEntropyImpurity(numerator, informationGainDataRepository.findByRatingIs(bool)) - findRemainder(numOfTrue, numOfFalse, attribute);
+        switch(attribute){
+            case "rating":
+                if(childAttribute == "modelAge"){
+                return booleanEntropyImpurity(numerator, crashRepository.findByRatingIs(bool)) - findRemainder(numOfTrue, numOfFalse, attribute);
+                }
+                case "modelAge":
+            return booleanEntropyImpurity(numerator, informationGainDataRepository. + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
+
+
+        }
     }
 
     public InformationGainData calculateGain() {
