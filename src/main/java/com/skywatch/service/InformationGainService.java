@@ -62,6 +62,28 @@ public class InformationGainService {
         return numOfCrashedTrue;
     }
 
+    private int calculateNumOfCrashedTrueChild(String attribute, boolean bool) {
+        int val = 0;
+        switch (attribute) {
+            case "rating":
+                val = crashRepository.findByRatingAndCrashedIs(bool, true).size();
+                break;
+            case "modelAge":
+                val = crashRepository.findByModelAgeIsAndCrashedIs(bool, true).size();
+                break;
+            case "firstFlight":
+                val = crashRepository.findByFirstFlightAndCrashedIs(bool, true).size();
+                break;
+            case "pilotAge":
+                val = crashRepository.findByPilotAgeAndCrashedIs(bool, true).size();
+                break;
+            case "weather":
+                val = crashRepository.findByWeatherAndCrashedIs(bool, true).size();
+                break;
+        }
+        return val;
+    }
+
 
     public InformationGainService(CrashRepository crashRepository, InformationGainDataRepository informationGainDataRepository) {
         this.crashRepository = crashRepository;
@@ -93,6 +115,10 @@ public class InformationGainService {
     private double findGain(int numOfTrue, int numOfFalse, String attribute) {
         int numerator = calculateNumOfCrashedTrue(attribute);
         return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
+    }
+
+    private double findGainChild(String attribute, boolean attributebool) {
+        calculateGainChild(attribute, true);
     }
 
     public InformationGainData calculateGain() {
