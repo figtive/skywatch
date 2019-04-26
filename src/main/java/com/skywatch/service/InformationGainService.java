@@ -156,7 +156,9 @@ public class InformationGainService {
         data[0] = findChildGain(
                 numOfTrue,
                 numOfFalse,
-
+                // parent attribute
+                "rating",
+//                booleanvalue
 
         );
         data[1] = findGain(
