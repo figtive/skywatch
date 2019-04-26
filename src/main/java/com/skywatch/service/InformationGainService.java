@@ -117,9 +117,6 @@ public class InformationGainService {
         return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
     }
 
-    private double findGainChild(String attribute, boolean attributebool) {
-        calculateGainChild(attribute, true);
-    }
 
     public InformationGainData calculateGain() {
         double[] data = new double[5];
@@ -153,11 +150,14 @@ public class InformationGainService {
     }
 
     public InformationGainData calculateGainChild() {
+        int numOfTrue = crashRepository.findByCrashedIs(true).size();
+        int numOfFalse = crashRepository.findByCrashedIs(false).size();
         double[] data = new double[5];
-        data[0] = findGain(
-                crashRepository.findByRatingIs(true).size(),
-                crashRepository.findByRatingIs(false).size(),
-                "rating"
+        data[0] = findChildGain(
+                numOfTrue,
+                numOfFalse,
+
+
         );
         data[1] = findGain(
                 crashRepository.findByModelAgeIs(true).size(),
