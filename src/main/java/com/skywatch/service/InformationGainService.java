@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class InformationGainService {
-`
+
     private final CrashRepository crashRepository;
 
     private final InformationGainDataRepository informationGainDataRepository;
@@ -62,6 +62,28 @@ public class InformationGainService {
         return numOfCrashedTrue;
     }
 
+    private int calculateNumOfCrashedTrueChild(String attribute, boolean bool) {
+        int val = 0;
+        switch (attribute) {
+            case "rating":
+                val = crashRepository.findByRatingAndCrashedIs(bool, true).size();
+                break;
+            case "modelAge":
+                val = crashRepository.findByModelAgeIsAndCrashedIs(bool, true).size();
+                break;
+            case "firstFlight":
+                val = crashRepository.findByFirstFlightAndCrashedIs(bool, true).size();
+                break;
+            case "pilotAge":
+                val = crashRepository.findByPilotAgeAndCrashedIs(bool, true).size();
+                break;
+            case "weather":
+                val = crashRepository.findByWeatherAndCrashedIs(bool, true).size();
+                break;
+        }
+        return val;
+    }
+
 
     public InformationGainService(CrashRepository crashRepository, InformationGainDataRepository informationGainDataRepository) {
         this.crashRepository = crashRepository;
@@ -90,8 +112,9 @@ public class InformationGainService {
 
     }
 
-    private double findRemainderChild(int numOfTrue, int numOfFalse, String attribute) {
-        int numerator = calculateNumOfCrashedTrueChild(attribute);
+    //TODO
+    private double findRemainderChild(int numOfTrue, int numOfFalse, String attribute, boolean bool) {
+        int numerator = calculateNumOfCrashedTrueChild(attribute, bool);
         return numOfTrue != 0 && numOfFalse != 0 ?
             (double) (numOfTrue / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfTrue), (numOfTrue + numOfFalse)) +
                     (double) (numOfFalse / (numOfTrue + numOfFalse)) * goalEntropy((numerator/numOfFalse), (numOfTrue + numOfFalse)) : 0;
@@ -104,19 +127,17 @@ public class InformationGainService {
         return booleanEntropyImpurity(numerator, numOfTrue + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
     }
 
-    private double findChildGain(int numOfTrue, int numOfFalse, String parentAttribute, String childAttribute, boolean bool) {
-        int numerator = calculateNumOfCrashedTrueChild(attribute, bool);
-        switch(attribute){
-            case "rating":
-                if(childAttribute == "modelAge"){
-                return booleanEntropyImpurity(numerator, crashRepository.findByRatingIs(bool)) - findRemainder(numOfTrue, numOfFalse, attribute);
-                }
-                case "modelAge":
-            return booleanEntropyImpurity(numerator, informationGainDataRepository. + numOfFalse) - findRemainder(numOfTrue, numOfFalse, attribute);
-
-
-        }
-    }
+    // private double findChildGain(int numOfTrue, int numOfFalse, String parentAttribute, String childAttribute, boolean bool) {
+    //     int numerator = calculateNumOfCrashedTrueChild(parentAttribute, bool);
+    //     switch(parentAttribute){
+    //         case "rating":
+    //             if(childAttribute == "modelAge"){
+    //             return booleanEntropyImpurity(numerator, crashRepository.findByRatingIs(bool).size()) - findRemainder(numOfTrue, numOfFalse, parentAttribute);
+    //             }
+    //         case "modelAge":
+    //             return booleanEntropyImpurity(numerator,numOfFalse) - findRemainder(numOfTrue, numOfFalse, parentAttribute);
+    //     }
+    // }
 
     public InformationGainData calculateGain() {
         double[] data = new double[5];
@@ -149,12 +170,16 @@ public class InformationGainService {
         return informationGainDataRepository.save(new InformationGainData(data));
     }
 
-    public InformationGainData calculateChildGain() {
+    public InformationGainData calculateGainChild() {
+        int numOfTrue = crashRepository.findByCrashedIs(true).size();
+        int numOfFalse = crashRepository.findByCrashedIs(false).size();
         double[] data = new double[5];
-        data[0] = findGain(
-                crashRepository.findByRatingIs(true).size(),
-                crashRepository.findByRatingIs(false).size(),
-                "rating"
+        data[0] = findChildGain(
+                numOfTrue,
+                numOfFalse,
+        
+
+
         );
         data[1] = findGain(
                 crashRepository.findByModelAgeIs(true).size(),
