@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Skywatch",
+            "request": "launch",
+            "mainClass": "com.skywatch.Skywatch",
+            "projectName": "is-project"
+        }
+    ]
+}
