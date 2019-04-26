@@ -31,5 +31,5 @@ class DecisionTree {
     DecisionTree(boolean bool) {
         root = new Node(bool);
     }
-    
+
 }
