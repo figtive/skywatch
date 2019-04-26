@@ -18,46 +18,43 @@ public class InformationGainService {
     private final InformationGainDataRepository informationGainDataRepository;
 
 
-    public int calculateNumOfCrashedTrue(String attribute) {
-        ArrayList<Crash> crashes = new ArrayList<>();
-        for (Crash object : crashRepository.findAll()) {
-            crashes.add(object);
-        }
+    private int calculateNumOfCrashedTrue(String attribute) {
+        ArrayList<Crash> crashes = new ArrayList<>(crashRepository.findAll());
 
         int numOfCrashedTrue = 0;
 
         switch(attribute) {
             case "rating":
-                for (int i=0; i< crashes.size(); i++) {
-                    if (crashes.get(i).isRating() && crashes.get(i).isCrashed()) {
+                for (Crash crash : crashes) {
+                    if (crash.isRating() && crash.isCrashed()) {
                         numOfCrashedTrue++;
                     }
                 }
 
             case "modelAge":
-                for (int i=0; i< crashes.size(); i++) {
-                    if (crashes.get(i).isModelAge() && crashes.get(i).isModelAge()) {
+                for (Crash crash : crashes) {
+                    if (crash.isModelAge()) {
                         numOfCrashedTrue++;
                     }
                 }
 
             case "firstFlight":
-                for (int i=0; i< crashes.size(); i++) {
-                    if (crashes.get(i).isFirstFlight() && crashes.get(i).isFirstFlight()) {
+                for (Crash crash : crashes) {
+                    if (crash.isFirstFlight()) {
                         numOfCrashedTrue++;
                     }
                 }
 
             case "pilotAge":
-                for (int i=0; i< crashes.size(); i++) {
-                    if (crashes.get(i).isPilotAge() && crashes.get(i).isPilotAge()) {
+                for (Crash crash : crashes) {
+                    if (crash.isPilotAge()) {
                         numOfCrashedTrue++;
                     }
                 }
 
             case "weather":
-                for (int i=0; i< crashes.size(); i++) {
-                    if (crashes.get(i).isWeather() && crashes.get(i).isWeather()) {
+                for (Crash crash : crashes) {
+                    if (crash.isWeather()) {
                         numOfCrashedTrue++;
                     }
                 }
