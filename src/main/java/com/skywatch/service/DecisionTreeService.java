@@ -16,9 +16,10 @@ class DecisionTreeService {
     private ArrayList<Node> nodeArray;
     
 
-    public DecisionTreeService(InformationGainData informationGainData, InformationGainService informationGainService){
+    public DecisionTreeService(String attribute, Node parent, InformationGainData informationGainData, InformationGainService informationGainService){
         this.informationGainData = informationGainData;
         this.informationGainService = informationGainService;
+        this.root = new Node(attribute, parent);
     }
 
     public double findHighestInfoGain(double[] gainArray){
