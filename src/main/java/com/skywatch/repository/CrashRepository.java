@@ -20,4 +20,6 @@ public interface CrashRepository extends JpaRepository<Crash, Long> {
     List<Crash> findByFirstFlightAndCrashedIs(boolean firstFlight, boolean crashed);
     List<Crash> findByPilotAgeAndCrashedIs(boolean pilotAge, boolean crashed);
     List<Crash> findByWeatherAndCrashedIs(boolean weather, boolean crashed);
+
+    List<Crash> findByRatingAndModelAgeIs(boolean rating, boolean modelAge);
 }

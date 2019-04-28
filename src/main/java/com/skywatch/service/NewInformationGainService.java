@@ -39,8 +39,24 @@ public class NewInformationGainService {
                 case "pilotAge":
                     return entropy(crashRepository.findByCrashedIs(true).size(), crashRepository.findByCrashedIs(false).size()) -
                             remainder(crashRepository.findByPilotAgeIs(true).size(), crashRepository.findByPilotAgeIs(false).size());
+                case "weather":
+                    return entropy(crashRepository.findByCrashedIs(true).size(), crashRepository.findByCrashedIs(false).size()) -
+                            remainder(crashRepository.findByWeatherIs(true).size(), crashRepository.findByWeatherIs(false).size());
+                default:
+                    throw new IllegalArgumentException("Wrong");
+            }
+        } else {
+            switch (parent) {
+                case "rating":
+                    switch (attribute) {
+                        case "modelAge":
+                            return entropy(crashRepository.findByModelAgeIsAndCrashedIs(parentBool, true).size(),
+                                    crashRepository.findByModelAgeIsAndCrashedIs(parentBool, false).size()) -
+                                    remainder(crashRepository.findByRatingAndModelAgeIs(parentBool, true).size(),
+                                            crashRepository.findByRatingAndModelAgeIs(parentBool, false).size());
+                    }
             }
         }
+        return 0;
     }
-
 }
