@@ -1,76 +1,65 @@
-//package com.skywatch.service;
-//
-//import java.util.ArrayList;
-//
-//import com.skywatch.service.Node;
-//import com.skywatch.service.InformationGainService;
-//import com.skywatch.model.InformationGainData;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//class DecisionTreeService {
-//
-//    private final InformationGainData informationGainData;
-//    private final InformationGainService informationGainService;
-//    private Node root;
-//    private ArrayList<Node> nodeArray;
-//
-//
-//    public DecisionTreeService(String attribute, Node parent, InformationGainData informationGainData, InformationGainService informationGainService){
-//        this.informationGainData = informationGainData;
-//        this.informationGainService = informationGainService;
-//        this.root = new Node(attribute, parent);
-//    }
-//
-//    public double findHighestInfoGain(double[] gainArray){
-//        gainArray[1] = informationGainData.getRating();
-//        gainArray[2] = informationGainData.getModelAge();
-//        gainArray[3] = informationGainData.getFirstFlight();
-//        gainArray[4] = informationGainData.getPilotAge();
-//        gainArray[5] = informationGainData.getWeather();
-//
-//        double max = 0.0;
-//        int index = 0;
-//        for(int i = 0; i < gainArray.length; i++){
-//            if(gainArray[i] > max){
-//                max = gainArray[i];
-//                index = i;
-//            }
-//        }
-//        gainArray[index] *= -1;
-//        return index;
-//    }
-//
-//    public ArrayList<Node> setTopNode(int index){
-//        switch(index){
-//            case 0:
-//                root = new Node("rating", null);
-//                nodeArray.add(root);
-//                // TODO left
-//                // TODO right
-//
-//            case 1:
-//                root = new Node("modelAge", null);
-//                nodeArray.add(root);
-//                // TODO left
-//                // TODO right
-//
-//            case 2:
-//                root = new Node("firstFlight", null);
-//                nodeArray.add(root);
-//                // TODO left
-//                // TODO right
-//
-//            case 3:
-//                root = new Node("pilotAge", null);
-//                nodeArray.add(root);
-//                // TODO left
-//                // TODO right
-//
-//        }
-//
-//        return nodeArray;
-//
-//    }
-//
-//}
+package com.skywatch.service;
+
+import com.skywatch.exception.CrashedFoundException;
+import com.skywatch.exception.SafeFoundException;
+import com.skywatch.model.Crash;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+@Service
+public class DecisionTreeService {
+
+    private static final String[] attributes = new String[]{"rating", "modelAge", "pilotAge", "weather", "firstFlight"};
+
+    private final NewInformationGainService newInformationGainService;
+
+    public DecisionTreeService(NewInformationGainService newInformationGainService) {
+        this.newInformationGainService = newInformationGainService;
+    }
+
+    public boolean predictCrash(Crash crash) {
+        ArrayList<String> tempAttributes = new ArrayList<>(Arrays.asList(attributes));
+        ArrayList<Node> tempArray = new ArrayList<>();
+
+        for (String attribute : tempAttributes) {
+            try {
+                tempArray.add(new Node(attribute,
+                        null,
+                        crash.getBoolean(attribute),
+                        newInformationGainService.getInformationGain(attribute, crash.getBoolean(attribute))));
+            } catch (SafeFoundException e) {
+                return false;
+            } catch (CrashedFoundException e) {
+                return true;
+            }
+        }
+
+        Node root = Collections.max(tempArray);
+        tempAttributes.remove(root.getAttribute());
+        Node parent = root;
+        Node tempNode;
+
+        while (!tempAttributes.isEmpty()) {
+            tempArray.clear();
+            for (String attribute : tempAttributes) {
+                try {
+                    tempArray.add(new Node(attribute,
+                            parent,
+                            crash.getBoolean(attribute),
+                            newInformationGainService.getInformationGain(attribute, parent.getAllAttribute(), parent.getAllBoolean(), crash.getBoolean(attribute))));
+                } catch (SafeFoundException e) {
+                    return false;
+                } catch (CrashedFoundException e) {
+                    return true;
+                }
+            }
+            tempNode = Collections.max(tempArray);
+            parent.setSuccessor(tempNode);
+            parent = tempNode;
+        }
+        return crash.getBoolean(parent.getAttribute());
+    }
+}
