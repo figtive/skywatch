@@ -42,4 +42,30 @@ public class NewInformationGainService {
         System.out.println("remainder" + out);
         return out;
     }
+
+    @SuppressWarnings({"Duplicates", "ConstantConditions"})
+    double getInformationGain(String attribute, ArrayList<String> parentAttributes, ArrayList<Boolean> parentBoolean, boolean crashBool) {
+
+        Integer totalCount = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+        parentAttributes.add("crashed");
+        parentBoolean.add(true);
+        Integer crashCount = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+        parentAttributes.remove(parentAttributes.size() - 1);
+        parentBoolean.remove(parentBoolean.size() - 1);
+
+        parentAttributes.add(0, attribute);
+        parentBoolean.add(0, true);
+        Integer trueCount = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+        parentBoolean.set(0, false);
+        Integer falseCount = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+
+        parentAttributes.add("crashed");
+        parentBoolean.add(true);
+        Integer falseCountGiven = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+        parentBoolean.set(0, true);
+        Integer trueCountGiven = jdbcTemplate.queryForObject(crashSqlService.mapSql(parentAttributes.toArray(new String[0]), parentBoolean.toArray(new Boolean[0])), Integer.class);
+
+        return entropy(crashCount, totalCount, false) -
+                remainder(trueCount, falseCount, trueCountGiven, falseCountGiven, crashBool);
+    }
 }
