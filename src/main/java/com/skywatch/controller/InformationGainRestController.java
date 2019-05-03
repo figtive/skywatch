@@ -3,7 +3,7 @@ package com.skywatch.controller;
 import com.skywatch.model.Crash;
 import com.skywatch.service.DecisionTreeService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
@@ -20,7 +20,12 @@ public class InformationGainRestController {
     }
 
     @GetMapping("/predict")
-    public Map<String, Boolean> predictCrash(@RequestBody Crash crash) {
-        return Collections.singletonMap("crashed", decisionTreeService.predictCrash(crash));
+    public Map<String, Boolean> predictCrash(@RequestParam(name = "rating") boolean rating,
+                                             @RequestParam(name = "modelAge") boolean modelAge,
+                                             @RequestParam(name = "firstFlight") boolean firstFlight,
+                                             @RequestParam(name = "pilotAge") boolean pilotAge,
+                                             @RequestParam(name = "weather") boolean weather,
+                                             @RequestParam(name = "crashed") boolean crashed) {
+        return Collections.singletonMap("crashed", decisionTreeService.predictCrash(new Crash(rating, modelAge, firstFlight, pilotAge, weather, crashed)));
     }
 }
