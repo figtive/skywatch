@@ -68,19 +68,4 @@ public class NewInformationGainService {
         return entropy(crashCount, totalCount, false) -
                 remainder(trueCount, falseCount, trueCountGiven, falseCountGiven, crashBool);
     }
-
-    public double getInformationGain(String attribute, boolean rootBool) {
-        System.out.println("\n==================================");
-        System.out.printf("attribute: %s\n\n", attribute);
-        double entropyCrash = entropy(crashRepository.findByCrashedIs(true).size(), crashRepository.findAll().size(), false);
-        switch (attribute) {
-            case "rating":
-                return entropyCrash -
-                        remainder(crashRepository.findByRatingIs(true).size(),
-                                crashRepository.findByRatingIs(false).size(),
-                                crashRepository.findByRatingAndCrashedIs(true, true).size(),
-                                crashRepository.findByRatingAndCrashedIs(false, true).size(), rootBool);
-        }
-    }
-
 }

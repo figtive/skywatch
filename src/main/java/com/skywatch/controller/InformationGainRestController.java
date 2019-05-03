@@ -1,28 +1,26 @@
 package com.skywatch.controller;
 
-import com.skywatch.service.NewInformationGainService;
+import com.skywatch.model.Crash;
+import com.skywatch.service.DecisionTreeService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
 
 @RestController
 public class InformationGainRestController {
 
-    private final NewInformationGainService newInformationGainService;
 
-    public InformationGainRestController(NewInformationGainService newInformationGainService) {
-        this.newInformationGainService = newInformationGainService;
+    private final DecisionTreeService decisionTreeService;
+
+    public InformationGainRestController(DecisionTreeService decisionTreeService) {
+        this.decisionTreeService = decisionTreeService;
     }
 
-    @GetMapping("/calculaterootig")
-    public HashMap<String, Double> calculateRootIg() {
-        HashMap<String, Double> out = new HashMap<>();
-        out.put("rating", newInformationGainService.getInformationGain(true, "rating", "", false));
-        out.put("modelAge", newInformationGainService.getInformationGain(true, "modelAge", "", false));
-        out.put("firstFlight", newInformationGainService.getInformationGain(true, "firstFlight", "", false));
-        out.put("pilotAge", newInformationGainService.getInformationGain(true, "pilotAge", "", false));
-        out.put("weather", newInformationGainService.getInformationGain(true, "weather", "", false));
-        return out;
+    @GetMapping("/predict")
+    public Map<String, Boolean> predictCrash(@RequestBody Crash crash) {
+        return Collections.singletonMap("crashed", decisionTreeService.predictCrash(crash));
     }
 }

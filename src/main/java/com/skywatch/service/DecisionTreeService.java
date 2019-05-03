@@ -29,7 +29,10 @@ public class DecisionTreeService {
                 tempArray.add(new Node(attribute,
                         null,
                         crash.getBoolean(attribute),
-                        newInformationGainService.getInformationGain(attribute, crash.getBoolean(attribute))));
+                        newInformationGainService.getInformationGain(attribute,
+                                new ArrayList<>(),
+                                new ArrayList<>(),
+                                crash.getBoolean(attribute))));
             } catch (SafeFoundException e) {
                 return false;
             } catch (CrashedFoundException e) {
