@@ -10,200 +10,244 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
     <link rel="stylesheet" th:href="@{/css/global-style.css}">
 </head>
+
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <img src="https://i.imgur.com/wVNZ66o.png" alt="hehe" style="height: 50px;width: 300px">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#myPage">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <img src="https://i.imgur.com/wVNZ66o.png" alt="hehe" style="height: 50px;width: 300px">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#myPage">
 
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#about">ABOUT</a></li>
-                <li><a href="#services">HOW</a></li>
-                <li><a href="#portfolio">PREDICT</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="jumbotron text-center">
-    <div class="thumbnail" style="background-color: transparent">
-        <img class=".img-responsive" src="https://i.imgur.com/DGuzxTa.png" alt="hehe">
-        <p style="font-family: 'Courier New', sans-serif; font-size: 30px;color: white;">Your Safety is our Goal</p>
-    </div>
-    <form>
-
-
-    </form>
-</div>
-
-<!-- Container (About Section) -->
-<div id="about" class="container-fluid">
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>About Skywatch</h2><br>
-            <h4>The Skywatch team consists of
-                <ul>
-                    <li>Muhammad Naufal</li>
-                    <li>Muhammad Ilman Nafi'an</li>
-                    <li>Nardiena Althafia Pratama</li>
-                    <li>Wahyu Ananda Duli Tokan</li>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#services">HOW</a></li>
+                    <li><a href="#portfolio">PREDICT</a></li>
                 </ul>
-            </h4>
-            <br>
-            <p>Skywatch is our Intelligent Systems course's project. Skywatch is an app to predict the chance of
-                airplane to crash with the help of our machine learning implementation</p>
-            <br>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-signal logo"></span>
+    </nav>
+
+    <div class="jumbotron text-center">
+        <div class="thumbnail" style="background-color: transparent">
+            <img class=".img-responsive" src="https://i.imgur.com/DGuzxTa.png" alt="hehe">
+            <p style="font-family: 'Courier New', sans-serif; font-size: 30px;color: white;">Your Safety is our Goal</p>
+        </div>
+        <form>
+
+
+        </form>
+    </div>
+
+    <!-- Container (About Section) -->
+    <div id="about" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>About Skywatch</h2><br>
+                <h4>The Skywatch team consists of
+                    <ul>
+                        <li>Muhammad Naufal</li>
+                        <li>Muhammad Ilman Nafi'an</li>
+                        <li>Nardiena Althafia Pratama</li>
+                        <li>Wahyu Ananda Duli Tokan</li>
+                    </ul>
+                </h4>
+                <br>
+                <p>Skywatch is our Intelligent Systems course's project. Skywatch is an app to predict the chance of
+                    airplane to crash with the help of our machine learning implementation</p>
+                <br>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-signal logo"></span>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid bg-grey">
-    <div class="row">
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-globe logo slideanim"></span>
-        </div>
-        <div class="col-sm-8">
-            <h2>Our Implementation (EDIT)</h2><br>
-            <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
-            <p><strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 2ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Container (Services Section) -->
-<div id="services" class="container-fluid text-center">
-    <h2>INDICATOR (EDIT)</h2>
-    <h4>What we offer</h4>
-    <br>
-    <div class="row slideanim">
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-off logo-small"></span>
-            <h4>RATING</h4>
-            <p>What is the flight's airline rating? (Out of 10)</p>
-        </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-heart logo-small"></span>
-            <h4>MODEL AGE</h4>
-            <p>How old is the flight's plane model?</p>
-        </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-lock logo-small"></span>
-            <h4>FIRST FLIGHT</h4>
-            <p>When was the first time the plane had flown?</p>
+    <div class="container-fluid bg-grey">
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-globe logo slideanim"></span>
+            </div>
+            <div class="col-sm-8">
+                <h2>Our Implementation (EDIT)</h2><br>
+                <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+                <p><strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 2ut labore
+                    et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip
+                    ex ea commodo consequat.</p>
+            </div>
         </div>
     </div>
-    <br><br>
-    <div class="row slideanim">
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-leaf logo-small"></span>
-            <h4>PILOT AGE</h4>
-            <p>How old is the flight's pilot?</p>
+
+    <!-- Container (Services Section) -->
+    <div id="services" class="container-fluid text-center">
+        <h2>INDICATOR (EDIT)</h2>
+        <h4>What we offer</h4>
+        <br>
+        <div class="row slideanim">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-off logo-small"></span>
+                <h4>RATING</h4>
+                <p>What is the flight's airline rating? (Out of 10)</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-heart logo-small"></span>
+                <h4>MODEL AGE</h4>
+                <p>How old is the flight's plane model?</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-lock logo-small"></span>
+                <h4>FIRST FLIGHT</h4>
+                <p>When was the first time the plane had flown?</p>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-certificate logo-small"></span>
-            <h4>WEATHER</h4>
-            <p>How does the weather look on the flight day?</p>
-        </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-wrench logo-small"></span>
-            <h4 style="color:#303030;">CRASHED</h4>
-            <p>Lorem ipsum dolor sit amet..</p>
+        <br><br>
+        <div class="row slideanim">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-leaf logo-small"></span>
+                <h4>PILOT AGE</h4>
+                <p>How old is the flight's pilot?</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-certificate logo-small"></span>
+                <h4>WEATHER</h4>
+                <p>How does the weather look on the flight day?</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-wrench logo-small"></span>
+                <h4 style="color:#303030;">CRASHED</h4>
+                <p>Lorem ipsum dolor sit amet..</p>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Container (Portfolio Section) -->
-<div id="portfolio" class="container-fluid text-center bg-grey">
-    <form>
+    <div id="portfolio" class="container-fluid text-center bg-grey">
+        <form>
 
-        <div class="form-group"> <!--  field -->
-            <label class="control-label " for="rating">Airline Rating</label>
-            <br>
-            <label>
-                <input class="ratingRadio" name="group1" type="radio" value="true" />
-                <span style="color:darkslategrey">5 stars or above</span>
-            </label>
-            <label>
-                <input class="ratingRadio" name="group1" type="radio" value="false" />
-                <span style="color:darkslategrey">Below 5 stars</span>
-            </label>
-        </div>
+            <div class="form-group">
+                <label class="control-label " for="rating">Airline Rating</label>
+                <br>
+                <label>
+                    <input class="ratingRadio" name="rating" type="radio" value="true" />
+                    <span style="color:darkslategrey">5 stars or above</span>
+                </label>
+                <label>
+                    <input class="ratingRadio" name="rating" type="radio" value="false" />
+                    <span style="color:darkslategrey">Below 5 stars</span>
+                </label>
+            </div>
 
-        <div class="form-group"> <!-- Email field -->
-            <label class="control-label requiredField" for="age">Model Age</label>
-            <br>
-            <label>
-                <input class="modelAgeRadio" name="group2" type="radio" value="true" />
-                <span style="color:darkslategrey">10 years or above</span>
-            </label>
-            <label>
-                <input class="modelAgeRadio" name="group2" type="radio" value="false"/>
-                <span style="color:darkslategrey">Below 10 years</span>
-            </label>
-        </div>
+            <div class="form-group">
+                <label class="control-label requiredField" for="age">Model Age</label>
+                <br>
+                <label>
+                    <input class="modelAgeRadio" name="modelAge" type="radio" value="true" />
+                    <span style="color:darkslategrey">10 years or above</span>
+                </label>
+                <label>
+                    <input class="modelAgeRadio" name="modelAge" type="radio" value="false" />
+                    <span style="color:darkslategrey">Below 10 years</span>
+                </label>
+            </div>
 
-        <div class="form-group"> <!-- Subject field -->
-            <label class="control-label " for="subject">First Flight</label>
-            <br>
-            <label>
-                <input class="firstFlightRadio" name="group3" type="radio" value="true"/>
-                <span style="color:darkslategrey">10 years or above</span>
-            </label>
-            <label>
-                <input class="firstFlightRadio" name="group3" type="radio" value="false"/>
-                <span style="color:darkslategrey">Below 5 years</span>
-            </label>
-        </div>
+            <div class="form-group">
+                <label class="control-label " for="subject">First Flight</label>
+                <br>
+                <label>
+                    <input class="firstFlightRadio" name="firstFlight" type="radio" value="true" />
+                    <span style="color:darkslategrey">10 years or above</span>
+                </label>
+                <label>
+                    <input class="firstFlightRadio" name="firstFlight" type="radio" value="false" />
+                    <span style="color:darkslategrey">Below 5 years</span>
+                </label>
+            </div>
 
-        <div class="form-group"> <!-- Message field -->
-            <label class="control-label " for="message">Pilot Age</label>
-            <br>
+            <div class="form-group">
+                <label class="control-label " for="message">Pilot Age</label>
+                <br>
 
-            <label>
-                <input class="pilotAgeRadio" name="group4" type="radio" value="true"/>
-                <span style="color:darkslategrey">30 years old or above</span>
-            </label>
-            <label>
-                <input class="pilotAgeRadio" name="group4" type="radio" value="false"/>
-                <span style="color:darkslategrey">Below 30 years old</span>
-            </label>
+                <label>
+                    <input class="pilotAgeRadio" name="pilotAge" type="radio" value="true" />
+                    <span style="color:darkslategrey">30 years old or above</span>
+                </label>
+                <label>
+                    <input class="pilotAgeRadio" name="pilotAge" type="radio" value="false" />
+                    <span style="color:darkslategrey">Below 30 years old</span>
+                </label>
 
-        </div>
+            </div>
 
-        <div class="form-group"> <!-- Message field -->
-            <label class="control-label " for="message">Weather</label>
-            <br>
+            <div class="form-group">
+                <label class="control-label " for="message">Weather</label>
+                <br>
 
-            <label>
-                <input class="weatherRadio" name="group5" type="radio" value="true"/>
-                <span style="color:darkslategrey">Sunny</span>
-            </label>
-            <label>
-                <input class="weatherRadio" name="group5" type="radio" value="false"/>
-                <span style="color:darkslategrey">Cloudy/Rainy</span>
-            </label>
+                <label>
+                    <input class="weatherRadio" name="weather" type="radio" value="true" />
+                    <span style="color:darkslategrey">Sunny</span>
+                </label>
+                <label>
+                    <input class="weatherRadio" name="weather" type="radio" value="false" />
+                    <span style="color:darkslategrey">Cloudy/Rainy</span>
+                </label>
 
-        </div>
+            </div>
 
+            <div class="form-group">
+                <button class="btn btn-primary" id="submit-button" name="submit" type="submit">Submit</button>
+            </div>
+
+            <div class="modal fade" id="crashedModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Crash!</h4>
+                        </div>
+                        <div class="modal-body">
+                            Your current flight is predicted to crash, be careful!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="notCrashedModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Not Crash!</h4>
+                        </div>
+                        <div class="modal-body">
+                            Your flight seems safe, congratulations!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
 <!--        <div class="form-group"> &lt;!&ndash; Message field &ndash;&gt;-->
 <!--            <label class="control-label " for="message">Crashed</label>-->
 <!--            <input class="form-control" cols="40" id="message" name="message">-->
@@ -217,17 +261,18 @@
 </div>
 
 
-<!-- Image of location/map -->
+    <!-- Image of location/map -->
 
-<footer class="container-fluid text-center">
-    <a href="#myPage" title="To Top">
-        <span class="glyphicon glyphicon-chevron-up"></span>
-    </a>
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
 
-</footer>
-<script th:src="@{/js/jquery-3.4.1.js}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script th:src="@{/js/global-script.js}"></script>
-<script th:src="@{/js/decision-tree.js}"></script>
+    </footer>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/global-script.js}"></script>
+    <script th:src="@{/js/decision-tree.js}"></script>
 </body>
+
 </html>
