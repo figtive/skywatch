@@ -67,6 +67,14 @@ public class Crash {
         this.crashed = crashed;
     }
 
+    public Crash(boolean rating, boolean modelAge, boolean firstFlight, boolean pilotAge, boolean weather) {
+        this.rating = rating;
+        this.modelAge = modelAge;
+        this.firstFlight = firstFlight;
+        this.pilotAge = pilotAge;
+        this.weather = weather;
+    }
+
     public long getId() {
         return id;
     }

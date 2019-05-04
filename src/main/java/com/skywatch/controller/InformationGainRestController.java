@@ -24,8 +24,7 @@ public class InformationGainRestController {
                                              @RequestParam(name = "modelAge") boolean modelAge,
                                              @RequestParam(name = "firstFlight") boolean firstFlight,
                                              @RequestParam(name = "pilotAge") boolean pilotAge,
-                                             @RequestParam(name = "weather") boolean weather,
-                                             @RequestParam(name = "crashed") boolean crashed) {
-        return Collections.singletonMap("crashed", decisionTreeService.predictCrash(new Crash(rating, modelAge, firstFlight, pilotAge, weather, crashed)));
+                                             @RequestParam(name = "weather") boolean weather) {
+        return Collections.singletonMap("crashed", decisionTreeService.predictCrash(new Crash(rating, modelAge, firstFlight, pilotAge, weather)));
     }
 }
