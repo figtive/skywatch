@@ -12,9 +12,11 @@ $(document).ready(function () {
             url: urlVar,
             type: "GET",
             success: function (result) {
-                let finalresult = result['crashed'];
-                if (finalresult == true) {
-
+                let finalResult = result['crashed'];
+                if (finalResult) {
+                    $('#crashedModal').modal('show');
+                } else if (!finalResult){
+                    $('#notCrashedModal').modal('show');
                 }
                 console.log(result['crashed'])
             }
