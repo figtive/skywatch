@@ -62,6 +62,7 @@ public class DecisionTreeService {
             tempNode = Collections.max(tempArray);
             parent.setSuccessor(tempNode);
             parent = tempNode;
+            tempAttributes.remove(parent.getAttribute());
         }
         return crash.getBoolean(parent.getAttribute());
     }
