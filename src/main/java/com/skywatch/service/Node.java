@@ -3,7 +3,7 @@ package com.skywatch.service;
 import java.util.ArrayList;
 
 @SuppressWarnings("unused")
-class Node implements Comparable<Node> {
+class Node implements Comparable<Node>, TreePrinter.PrintableNode {
     private String attribute;
     private boolean value;
     private Node predecessor;
@@ -18,6 +18,16 @@ class Node implements Comparable<Node> {
         this.gain = gain;
         this.successor = null;
         this.trueProbabilityGiven = 0.5;
+    }
+
+    public Node(String attribute, boolean value, Node predecessor) {
+        this.attribute = attribute;
+        this.value = value;
+        this.predecessor = predecessor;
+    }
+
+    public Node(String attribute) {
+        this.attribute = attribute;
     }
 
     String getAttribute() {
@@ -48,8 +58,9 @@ class Node implements Comparable<Node> {
         return successor;
     }
 
-    void setSuccessor(Node successor) {
+    Node setSuccessor(Node successor) {
         this.successor = successor;
+        return successor;
     }
 
     @Override
@@ -106,5 +117,20 @@ class Node implements Comparable<Node> {
         if (predecessor != null) {
             predecessor.getAllBoolean(out);
         }
+    }
+
+    @Override
+    public TreePrinter.PrintableNode getLeft() {
+        return !value ? successor: null;
+    }
+
+    @Override
+    public TreePrinter.PrintableNode getRight() {
+        return value ? successor: null;
+    }
+
+    @Override
+    public String getText() {
+        return attribute;
     }
 }

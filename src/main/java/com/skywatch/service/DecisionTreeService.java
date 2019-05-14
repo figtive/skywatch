@@ -21,6 +21,10 @@ public class DecisionTreeService {
     }
 
     public boolean predictCrash(Crash crash) {
+        return predictCrash(crash, false);
+    }
+
+    public boolean predictCrash(Crash crash, boolean drawTree) {
         ArrayList<String> tempAttributes = new ArrayList<>(Arrays.asList(attributes));
         ArrayList<Node> tempArray = new ArrayList<>();
 
@@ -54,8 +58,12 @@ public class DecisionTreeService {
                             crash.getBoolean(attribute),
                             newInformationGainService.getInformationGain(attribute, parent.getAllAttribute(), parent.getAllBoolean(), crash.getBoolean(attribute))));
                 } catch (SafeFoundException e) {
+                    parent.setSuccessor(new Node(attribute, crash.getBoolean(attribute), parent)).setSuccessor(new Node("Safe"));
+                    if (drawTree) TreePrinter.print(root);
                     return false;
                 } catch (CrashedFoundException e) {
+                    parent.setSuccessor(new Node(attribute, crash.getBoolean(attribute), parent)).setSuccessor(new Node("Crash"));
+                    if (drawTree) TreePrinter.print(root);
                     return true;
                 }
             }
@@ -64,6 +72,11 @@ public class DecisionTreeService {
             parent = tempNode;
             tempAttributes.remove(parent.getAttribute());
         }
+        if (crash.getBoolean(parent.getAttribute())) {
+            parent.setSuccessor(new Node("Crash"));
+        }
+        parent.setSuccessor(new Node(crash.getBoolean(parent.getAttribute()) ? "Crash" : "Safe"));
+        if (drawTree) TreePrinter.print(root);
         return crash.getBoolean(parent.getAttribute());
     }
 }
