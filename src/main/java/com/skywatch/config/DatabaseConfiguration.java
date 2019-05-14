@@ -20,7 +20,12 @@ public class DatabaseConfiguration {
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?currentSchema=" + System.getenv("SCHEMA");
+        String dbUrl;
+        if (System.getenv("DATABASE_URL").contains("\\?")) {
+            dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?" + System.getenv("DATABASE_URL").split("\\?")[1];
+        } else {
+            dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+        }
 
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);

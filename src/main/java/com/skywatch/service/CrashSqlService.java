@@ -8,7 +8,6 @@ public class CrashSqlService {
         StringBuilder out = new StringBuilder("select count(c.*) from crash_data.crash c");
 
         if (attributes.length == 0) {
-            System.out.println(out);
             return out.toString();
         }
 
@@ -19,7 +18,6 @@ public class CrashSqlService {
         }
         out.append(";");
 
-        System.out.println(out);
         return out.toString();
     }
 
